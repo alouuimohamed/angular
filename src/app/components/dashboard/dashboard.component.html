@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Admin Dashboard </title>
+    <link rel="stylesheet" href="dashboard.component.scss">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="warning">
+        <h2> Sorry, this page doesn't support your device, Please use large screen device to see this page </h2>
+    </div>
+
+    <section>
+        <!-- User Sidebar Starts from Here -->
+        <div class="navbar" id="navigation">
+          <!--<img src="/src/tradeu.png" alt="">-->  
+            <ul class="center-nav">
+                <li><i class="fa-solid fa-house"></i><a href="#"> Users </a></li>
+                <li><i class="fa-solid fa-copy"></i><a href="#"> Biens </a></li>
+                <li><i class="fa-sharp fa-solid fa-chart-simple"></i><a href="#"> Analytics </a></li>
+                <li><i class="fa-solid fa-thumbs-up"></i><a href="#"> Likes </a></li>
+                <li><i class="fa-solid fa-comment"></i><a href="#"> Comments </a></li>
+                <li><i class="fa-sharp fa-solid fa-floppy-disk"></i><a href="#"> Saves </a></li>
+                <li><i class="fa-solid fa-share"></i><a href="#"> Share </a></li>
+                <li><i class="fa-solid fa-rectangle-ad"></i><a href="#"> Ads </a></li>
+            </ul>
+            <ul class="bottom-nav">
+                <hr>
+                <li><i class="fa-solid fa-gear"></i><a href="#"> Settings </a></li>
+                <li><i class="fa-solid fa-power-off"></i><a  (click)="logout()">logout</a></li>
+              </ul>
+        </div>
+
+        <!-- User Top Naviagation Starts from Here -->
+        <div class="main-content">
+            <div class="main-top">
+                
+                <div class="input">
+                    <input type="text" placeholder="Search here...">
+                </div>
+                
+            </div>
+
+            <!-- User Dashboard Starts from Here -->
+            <div class="dashboard">
+        
+              <h2>Liste des utilisateurs</h2>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Suppression</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of users">
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.adress }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td>
+                      <span *ngIf="user.banned; else activeStatus">Banni</span>
+                      <ng-template #activeStatus>
+                        Actif
+                      </ng-template>
+                    </td>
+                    <td>
+                      <button (click)="deleteUser(user.id)" class="btn btn-danger">Supp</button>
+                    </td>
+                    <td>
+                      <div *ngIf="!user.banned">
+                        <button (click)="banuser(user.id)" class="btn btn-warning">Ban</button>
+                      </div>
+                      <div *ngIf="user.banned">
+                        <button (click)="unbanuser(user.id)" class="btn btn-success">Unban</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              
+                    
+
+
+                </div>
+            </div>
+
+            <!-- User Activity Starts from Here -->
+        
+        
+    </section>
+
+</body>
+
+<script>
+    const hamburger = document.getElementById('menu');
+    const navigation = document.getElementById('navigation');
+    hamburger.addEventListener('click', function () {
+        navigation.classList.toggle('active')
+        console.log('clicked');
+    })
+</script>
+
+</html>
